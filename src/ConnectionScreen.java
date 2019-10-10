@@ -29,12 +29,13 @@ public class ConnectionScreen extends Group {
         Button seConnecter = new Button("Se connecter");
         seConnecter.setTranslateY(120);
         seConnecter.setOnAction((n) -> {
-
-            if (profils.size()!=0) {
+            String rep = user.getText();
+            String nip = pass.getText();
+            if (profils.size() != 0) {
                 for (Profil profil : profils) {
-                    if (profil.exists(user.getText(), pass.getText())) {
+                    if (profil.exists(rep,nip)) {
                         new Progress(window);
-                    } else if (profils.get(profils.size()-1)==profil){
+                    } else {
                         Label erreur = new Label("La connection a échouée");
                         erreur.setTextFill(Color.RED);
                         erreur.setTranslateY(165);
@@ -43,7 +44,8 @@ public class ConnectionScreen extends Group {
                         pass.setText("");
                     }
                 }
-            } else{
+            } else {
+                System.out.println("profils vide");
                 Label erreur = new Label("La connection a échouée");
                 erreur.setTextFill(Color.RED);
                 erreur.setTranslateY(165);
@@ -57,15 +59,10 @@ public class ConnectionScreen extends Group {
         Button subscribe = new Button("S'inscrire");
         subscribe.setTranslateY(120);
         subscribe.setTranslateX(100);
-        subscribe.setOnAction((n) -> {
-            SubsciptionScreen ss = new SubsciptionScreen(profils, window);
-
-
-        });
+        subscribe.setOnAction((n) -> new SubsciptionScreen(profils, window));
 
         getChildren().addAll(userName, user, passWord, pass, seConnecter, subscribe);
     }
-
 
 
 }
