@@ -37,29 +37,32 @@ public class Profil {
 
     public static List<Profil> undoString() {
         List<Profil> liste = new ArrayList<>();
-        if (Save.chargerProfils().size()!=0) {
-            String phrase = "";
-            for (String phrasePartielle : Save.chargerProfils()) {
 
-                if (Save.chargerProfils().size() > 1) {
-                    phrase = phrase + "\n" + phrasePartielle;
-                } else {
-                    phrase = phrasePartielle;
-                }
-            }
-            System.out.println(phrase);
+        String phrase = "";
+        for (String phrasePartielle : Save.chargerProfils()) {
 
-            String tabContenantProfils[] = phrase.split("\n");
-            String tabInfo[];
-
-            for (int i = 1; i < tabContenantProfils.length; i++) {
-                tabInfo = tabContenantProfils[i].split(",");
-                System.out.println(tabInfo[1]);
-                liste.add(new Profil(tabInfo[0], tabInfo[1], tabInfo[2], tabInfo[3], tabInfo[4], tabInfo[5]));
+            if (Save.chargerProfils().size() > 1) {
+                phrase = phrase + "\n" + phrasePartielle;
+            } else {
+                phrase = phrasePartielle;
             }
         }
-        return liste;
+       if (phrase.indexOf("\n")!=-1) {
+           String tabContenantProfils[] = phrase.split("\n");
 
+
+           for (int i = 1; i < tabContenantProfils.length; i++) {
+              String tabInfo[] = tabContenantProfils[i].split(",");
+               System.out.println(tabInfo[1]);
+               liste.add(new Profil(tabInfo[0], tabInfo[1], tabInfo[2], tabInfo[3], tabInfo[4], tabInfo[5]));
+
+           }
+       }
+       else if (!phrase.isEmpty()&&phrase.indexOf("\n")==-1){
+           String tabInfo[] = phrase.split(",");
+           liste.add(new Profil(tabInfo[0], tabInfo[1], tabInfo[2], tabInfo[3], tabInfo[4], tabInfo[5]));
+       }
+        return liste;
     }
 
     public Boolean exists(String _user, String _passWord) {
@@ -68,9 +71,5 @@ public class Profil {
             bool = true;
         }
         return bool;
-    }
-
-    public String getPassWord() {
-        return passWord;
     }
 }

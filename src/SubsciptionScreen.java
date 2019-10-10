@@ -102,7 +102,7 @@ public class SubsciptionScreen {
                 vb.getChildren().addAll(tests);
             }
             else {
-                profils.add(new Profil(user.getText(), passWord.getText(), selectionner(tg,cocher(homme,femme,autre)), Integer.toString(spinner.getValue()), first.getText(), last.getText()));
+                profils.add(new Profil(user.getText(),Integer.toString(passWord.getText().hashCode()) , selectionner(tg,cocher(homme,femme,autre)), Integer.toString(spinner.getValue()), first.getText(), last.getText()));
                 Save.sauvegarder(profils);
                 retourConnexion(profils, window);
             }

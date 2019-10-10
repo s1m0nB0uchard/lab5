@@ -30,7 +30,9 @@ public class ConnectionScreen extends Group {
         seConnecter.setTranslateY(120);
         seConnecter.setOnAction((n) -> {
             String rep = user.getText();
-            String nip = pass.getText();
+
+            String nip = Integer.toString(pass.getText().hashCode());
+            System.out.println(nip);
             if (profils.size() != 0) {
                 for (Profil profil : profils) {
                     if (profil.exists(rep,nip)) {
